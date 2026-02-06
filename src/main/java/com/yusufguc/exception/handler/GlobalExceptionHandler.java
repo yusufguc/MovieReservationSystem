@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.yusufguc.exception.base.BaseException;
 import com.yusufguc.exception.model.ApiError;
 import com.yusufguc.exception.model.ExceptionDetail;
+import com.yusufguc.model.enums.Genre;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -105,4 +107,35 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(createApiError(message, request));
     }
+
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiError<String>> handleMethodArgumentTypeMismatch(
+            MethodArgumentTypeMismatchException ex,
+            WebRequest request) {
+
+        String message = "Invalid parameter value.";
+
+        Class<?> requiredType = ex.getRequiredType();
+
+        if (requiredType != null) {
+
+            if (requiredType.isEnum()) {
+
+                Object[] enumValues = requiredType.getEnumConstants();
+
+                message = "Invalid enum value. Accepted values: " +
+                        Arrays.toString(enumValues);
+            }
+
+            else if (requiredType.equals(Long.class)) {
+
+                message = "Movie id must be a numeric value.";
+            }
+        }
+
+        return ResponseEntity.badRequest().body(createApiError(message, request));
+    }
+
+
 }
