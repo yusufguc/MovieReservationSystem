@@ -36,12 +36,4 @@ public class Showtime {
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
-    @PrePersist
-    @PreUpdate
-    public void calculateEndTime() {
-        if (startTime != null && movie != null && movie.getDurationMinutes() != null) {
-            this.endTime = startTime.plusMinutes(movie.getDurationMinutes());
-        }
-    }
-
 }
