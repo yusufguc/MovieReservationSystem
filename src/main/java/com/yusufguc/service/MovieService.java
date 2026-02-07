@@ -2,6 +2,7 @@ package com.yusufguc.service;
 
 import com.yusufguc.dto.request.MovieRequest;
 import com.yusufguc.dto.response.MovieResponse;
+import com.yusufguc.model.Movie;
 import com.yusufguc.model.enums.Genre;
 
 import java.util.List;
