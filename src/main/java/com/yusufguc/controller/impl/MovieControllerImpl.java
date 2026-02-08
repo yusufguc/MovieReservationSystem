@@ -42,6 +42,7 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
     @GetMapping("/movies")
     @Override
     public RootEntity<List<MovieResponse>> getAllMovies() {
+
         return ok(movieService.getAllMovies());
     }
 

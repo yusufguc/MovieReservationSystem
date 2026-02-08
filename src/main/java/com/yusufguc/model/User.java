@@ -36,6 +36,7 @@ public class User {
 
     @PrePersist
     public void onCreate() {
+
         this.createdAt = LocalDateTime.now();
     }
 }
