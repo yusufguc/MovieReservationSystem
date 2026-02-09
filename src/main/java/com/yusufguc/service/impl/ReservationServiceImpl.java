@@ -42,15 +42,30 @@ public class ReservationServiceImpl implements ReservationService {
         Showtime showtimeDb = showTimeRepository.findById(request.getShowtimeId())
                 .orElseThrow(() -> new BaseException(new ErrorMessage(MessageType.THERE_IS_NO_SHOWTIME, request.getShowtimeId().toString())));
 
+        if (showtimeDb.getStartTime().isBefore(LocalDateTime.now())) {
+            throw new BaseException(
+                    new ErrorMessage(MessageType.SHOWTIME_ALREADY_STARTED,""));
+        }
+
         List<Seat> seatList = seatRepository.findAllById(request.getSeatIds());
 
         if (seatList.size() != request.getSeatIds().size()){
             throw new BaseException(new ErrorMessage(MessageType.THERE_IS_NO_SEATS,""));
         }
 
-        if (reservationSeatRepository
-                .existsByShowtimeIdAndSeatIdIn(showtimeDb.getId(),request.getSeatIds())){
-            throw new BaseException(new ErrorMessage(MessageType.SEAT_ALREADY_RESERVED,""));
+        List<ReservationSeat> reservedSeats =
+                reservationSeatRepository
+                        .findByReservation_Showtime_Id(showtimeDb.getId());
+
+        List<Long> reservedSeatIds = reservedSeats.stream()
+                .map(rs -> rs.getSeat().getId())
+                .toList();
+
+        for (Long seatId : request.getSeatIds()) {
+            if (reservedSeatIds.contains(seatId)) {
+                throw new BaseException(
+                        new ErrorMessage(MessageType.SEAT_ALREADY_RESERVED,""));
+            }
         }
 
 
@@ -65,7 +80,6 @@ public class ReservationServiceImpl implements ReservationService {
                     ReservationSeat rs = new ReservationSeat();
                     rs.setReservation(reservation);
                     rs.setSeat(seat);
-                    rs.setShowtime(showtimeDb);
                     return rs;
                 }).toList();
 
@@ -90,16 +104,4 @@ public class ReservationServiceImpl implements ReservationService {
 
         return response;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

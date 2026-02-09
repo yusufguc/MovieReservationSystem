@@ -24,7 +24,7 @@ public class SeatServiceImpl implements SeatService {
         List<Seat> allSeats = seatRepository.findAll();
 
         List<ReservationSeat> reservedSeats =
-                reservationSeatRepository.findByShowtimeId(showtimeId);
+                reservationSeatRepository.findByReservation_Showtime_Id(showtimeId);
 
         List<Long> reservedSeatIds = reservedSeats.stream()
                 .map(rs -> rs.getSeat().getId())

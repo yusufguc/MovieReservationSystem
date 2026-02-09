@@ -10,7 +10,7 @@ import lombok.Setter;
 @Table(
         name = "reservation_seat",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"showtime_id", "seat_id"})
+                @UniqueConstraint(columnNames = {"reservation_id", "seat_id"})
         }
 )
 @Getter
@@ -31,9 +31,6 @@ public class ReservationSeat {
     @JoinColumn(name = "seat_id", nullable = false)
     private Seat seat;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "showtime_id", nullable = false)
-    private Showtime showtime;
 }
 
 

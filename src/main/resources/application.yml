@@ -1,0 +1,3 @@
+jwt:
+  secret: IJUDY8zd36NffbqWep5maBSdZtbD+P/wrzykV4Evo2M=
+  expiration: 7200000
