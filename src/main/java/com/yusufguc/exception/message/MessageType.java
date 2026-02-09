@@ -12,6 +12,8 @@ public enum MessageType {
     THERE_IS_NO_HALL("1004","There is no hall of this ID"),
     SHOWTIME_CONFLICT("1005","The salon is already occupied at the specified time range"),
     THERE_IS_NO_SHOWTIME("1006","there is no Showtime of this ID"),
+    THERE_IS_NO_SEATS("1007","there is no seats"),
+    SEAT_ALREADY_RESERVED("1008","Seat already reserved"),
     GENERAL_EXCEPTION("9999","A general error occurred");
 
     private final String  code;
