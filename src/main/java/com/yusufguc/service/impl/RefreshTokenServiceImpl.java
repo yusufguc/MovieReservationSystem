@@ -62,6 +62,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
                 newRefreshToken.getRefreshToken()
         );
     }
+
+    @Override
+    public void deleteExpiredTokens() {
+       refreshTokenRepository.deleteByExpireDateBefore(new Date());
+    }
 }
 
 

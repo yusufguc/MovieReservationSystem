@@ -5,4 +5,6 @@ import com.yusufguc.dto.response.RegisterResponse;
 
 public interface RefreshTokenService {
     public RegisterResponse refreshToken(RefreshTokenRequest request);
+
+    public void deleteExpiredTokens();
 }
