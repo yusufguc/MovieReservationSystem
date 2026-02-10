@@ -46,12 +46,6 @@ public class ReservationControllerImpl extends RestBaseController implements Res
         return ResponseEntity.ok(response);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
-//    @GetMapping()
-//    @Override
-//    public RootEntity<List<ReservationResponse>> getAllReservation() {
-//        return ok(reservationService.getAllReservations());
-//    }
 
     @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @GetMapping("/my")

@@ -171,17 +171,6 @@ public class ReservationServiceImpl implements ReservationService {
         return mapReservationToResponse(reservation);
     }
 
-//---------------------------getAllReservation-----------------------
-
-//    @Transactional
-//    @Override
-//    public List<ReservationResponse> getAllReservations() {
-//        List<Reservation> reservations = reservationRepository.findAll();
-//
-//        return reservations.stream()
-//                .map(this::mapReservationToResponse)
-//                .toList();
-//    }
 
 //---------------------------getMyReservation-----------------------
 

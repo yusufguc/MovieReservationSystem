@@ -16,12 +16,9 @@ public interface MovieController {
 
     public RootEntity<MovieResponse> updateMovie(Long id, MovieRequest movieRequest);
 
-    //Pageable
-//    public RootEntity<List<MovieResponse>> getAllMovies();
 
     public RootEntity<MovieResponse> getMovieById(Long id);
 
-//    public RootEntity<List<MovieResponse>> getAllMoviesByGenre(Genre genre);
 
 //----------------PAGEABLE--------------------------
     public RootEntity<RestPageableEntity<MovieResponse>> getAllMovies(RestPageableRequest pageable);

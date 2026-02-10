@@ -15,7 +15,6 @@ public interface ReservationService {
 
     public ReservationResponse updateReservation(Long reservationId, ReservationRequest request) ;
 
-//    public List<ReservationResponse> getAllReservations();
 
     public List<ReservationResponse> getMyReservation();
 

@@ -15,11 +15,9 @@ public interface MovieService {
 
     public  MovieResponse updateMovie(Long id ,MovieRequest movieRequest);
 
-    //public List<MovieResponse> getAllMovies();
 
     public  MovieResponse getMovieById(Long id);
 
-//    public List<MovieResponse> getAllMoviesByGenre(Genre genre);
 
     //-------------PAGEABLE--------------
     public Page<MovieResponse> getAllMovies(Pageable pageable) ;
