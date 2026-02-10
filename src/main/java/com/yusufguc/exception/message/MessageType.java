@@ -18,6 +18,11 @@ public enum MessageType {
     REFRESH_TOKEN_INVALID("1010","Refresh token invalid"),
     REFRESH_TOKEN_EXPIRED("1011","Refresh token expired"),
     USERNAME_ALREADY_EXISTS("1012","Username already exists"),
+    RESERVATION_NOT_FOUND("1013","Reservation not found"),
+    CANNOT_CANCEL_PAST_RESERVATION("1014","Cannot cancel past reservation"),
+    USER_NOT_FOUND("1015","User not found"),
+    NOT_ALLOWED("1016","The reservation is not yours"),
+    RESERVATION_ALREADY_CANCELLED("1017","Reservation already cancelled"),
     GENERAL_EXCEPTION("9999","A general error occurred");
 
     private final String  code;

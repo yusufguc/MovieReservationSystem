@@ -8,6 +8,7 @@ import com.yusufguc.model.enums.Genre;
 import com.yusufguc.service.MovieService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
     @Autowired
     private MovieService movieService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/movies")
     @Override
     public RootEntity<MovieResponse> addMovie(@Valid @RequestBody MovieRequest movieRequest) {
@@ -26,12 +28,14 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
         return ok(movieService.addMovie(movieRequest));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/movies/{id}")
     @Override
     public void deleteMovie(@PathVariable Long id) {
          movieService.deleteMovie(id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/movies/{id}")
     @Override
     public RootEntity<MovieResponse> updateMovie(@PathVariable Long id,
@@ -39,6 +43,7 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
         return ok(movieService.updateMovie(id,movieRequest));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @GetMapping("/movies")
     @Override
     public RootEntity<List<MovieResponse>> getAllMovies() {
@@ -46,11 +51,14 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
         return ok(movieService.getAllMovies());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @GetMapping("/movies/id/{id}")
     @Override
     public RootEntity<MovieResponse> getMovieById(@PathVariable Long id) {
         return ok(movieService.getMovieById(id));
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @GetMapping("/movies/genre/{genre}")
     @Override
     public RootEntity<List<MovieResponse>> getAllMoviesByGenre(@PathVariable  Genre genre) {
