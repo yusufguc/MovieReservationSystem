@@ -54,7 +54,7 @@ public class ReservationControllerImpl extends RestBaseController implements Res
         return ok(reservationService.getMyReservation());
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/pageable")
     public RootEntity<RestPageableEntity<ReservationResponse>> getAllReservations(RestPageableRequest pageable){
 
