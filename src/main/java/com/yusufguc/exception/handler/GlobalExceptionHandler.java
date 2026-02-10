@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.yusufguc.exception.base.BaseException;
 import com.yusufguc.exception.model.ApiError;
 import com.yusufguc.exception.model.ExceptionDetail;
-import com.yusufguc.model.enums.Genre;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -23,6 +23,17 @@ import java.util.*;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(PropertyReferenceException.class)
+    public ResponseEntity<ApiError<String>> handlePropertyReferenceException(
+            PropertyReferenceException ex,
+            WebRequest request) {
+
+        String message = "A field was used that does not exist in the movie entity: " + ex.getPropertyName();
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(createApiError(message, request));
+    }
 
 
     @ExceptionHandler(value ={MethodArgumentNotValidException.class})

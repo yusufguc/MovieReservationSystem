@@ -6,8 +6,11 @@ import com.yusufguc.dto.response.MovieResponse;
 import com.yusufguc.model.RootEntity;
 import com.yusufguc.model.enums.Genre;
 import com.yusufguc.service.MovieService;
+import com.yusufguc.utils.RestPageableEntity;
+import com.yusufguc.utils.RestPageableRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,4 +67,24 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
     public RootEntity<List<MovieResponse>> getAllMoviesByGenre(@PathVariable  Genre genre) {
         return ok(movieService.getAllMoviesByGenre(genre));
     }
+
+//----------------PAGEABLE--------------------------
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+    @GetMapping("/movies/pageable")
+    @Override
+    public RootEntity<RestPageableEntity<MovieResponse>> getAllMovies(RestPageableRequest pageable) {
+        Page<MovieResponse> page = movieService.getAllMovies(toPageable(pageable));
+        RestPageableEntity<MovieResponse> pageableResponse = toPageableResponse(page, page.getContent());
+
+        return ok(pageableResponse);
+    }
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+    @GetMapping("/movies/pageable/genre/{genre}")
+    @Override
+    public RootEntity<RestPageableEntity<MovieResponse>> getAllMoviesByGenre(@PathVariable Genre genre, RestPageableRequest pageable) {
+        Page<MovieResponse> page = movieService.getAllMoviesByGenre(genre, toPageable(pageable));
+        RestPageableEntity<MovieResponse> pageableResponse = toPageableResponse(page, page.getContent());
+        return ok(pageableResponse);
+    }
+
 }

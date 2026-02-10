@@ -2,8 +2,9 @@ package com.yusufguc.service;
 
 import com.yusufguc.dto.request.MovieRequest;
 import com.yusufguc.dto.response.MovieResponse;
-import com.yusufguc.model.Movie;
 import com.yusufguc.model.enums.Genre;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface MovieService {
 
     public List<MovieResponse> getAllMoviesByGenre(Genre genre);
 
-}
+    //-------------PAGEABLE--------------
+    public Page<MovieResponse> getAllMovies(Pageable pageable) ;
+    public Page<MovieResponse> getAllMoviesByGenre(Genre genre, Pageable pageable);
+
+    }

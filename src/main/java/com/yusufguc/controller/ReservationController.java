@@ -14,6 +14,7 @@ public interface ReservationController {
 
     public ResponseEntity<ReservationResponse> updateReservation(Long reservationId, ReservationRequest request) ;
 
+    //Pageable
     public RootEntity<List<ReservationResponse>> getAllReservation() ;
 
     public RootEntity<List<ReservationResponse>> getMyReservation() ;

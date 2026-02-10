@@ -12,6 +12,8 @@ import com.yusufguc.repository.MovieRepository;
 import com.yusufguc.service.MovieService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -93,6 +95,22 @@ public class MovieServiceImpl implements MovieService {
     }
 
 
+//----------------PAGEABLE--------------------------
+    @Override
+    public Page<MovieResponse> getAllMovies(Pageable pageable) {
+        Page<Movie> moviesPage = movieRepository.findAll(pageable);
+
+        return moviesPage.map(this::toMovieResponse);
+    }
+
+    @Override
+    public Page<MovieResponse> getAllMoviesByGenre(Genre genre, Pageable pageable) {
+
+        Page<Movie> moviesPage = movieRepository.findAllByGenre(genre, pageable);
+
+        return moviesPage.map(this::toMovieResponse);
+    }
+
     private Movie toMovie(MovieRequest request){
         Movie movie = new Movie();
         movie.setTitle(request.getTitle());
@@ -110,7 +128,5 @@ public class MovieServiceImpl implements MovieService {
         response.setGenre(movie.getGenre());
         return response;
     }
-
-
 }
 
