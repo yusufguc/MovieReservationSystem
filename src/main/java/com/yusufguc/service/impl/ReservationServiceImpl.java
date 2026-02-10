@@ -12,6 +12,8 @@ import com.yusufguc.service.ReservationService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -171,15 +173,15 @@ public class ReservationServiceImpl implements ReservationService {
 
 //---------------------------getAllReservation-----------------------
 
-    @Transactional
-    @Override
-    public List<ReservationResponse> getAllReservations() {
-        List<Reservation> reservations = reservationRepository.findAll();
-
-        return reservations.stream()
-                .map(this::mapReservationToResponse)
-                .toList();
-    }
+//    @Transactional
+//    @Override
+//    public List<ReservationResponse> getAllReservations() {
+//        List<Reservation> reservations = reservationRepository.findAll();
+//
+//        return reservations.stream()
+//                .map(this::mapReservationToResponse)
+//                .toList();
+//    }
 
 //---------------------------getMyReservation-----------------------
 
@@ -194,6 +196,16 @@ public class ReservationServiceImpl implements ReservationService {
         return reservations.stream()
                 .map(this::mapReservationToResponse)
                 .toList();
+    }
+
+//---------------------------PAGEABLE-----------------------
+    @Transactional
+    @Override
+    public Page<ReservationResponse> getAllReservations(Pageable pageable) {
+
+        Page<Reservation> reservationsPage = reservationRepository.findAll(pageable);
+
+        return reservationsPage.map(this::mapReservationToResponse);
     }
 
 

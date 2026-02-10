@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -46,13 +45,13 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
         return ok(movieService.updateMovie(id,movieRequest));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
-    @GetMapping("/movies")
-    @Override
-    public RootEntity<List<MovieResponse>> getAllMovies() {
-
-        return ok(movieService.getAllMovies());
-    }
+//    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+//    @GetMapping("/movies")
+//    @Override
+//    public RootEntity<List<MovieResponse>> getAllMovies() {
+//
+//        return ok(movieService.getAllMovies());
+//    }
 
     @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @GetMapping("/movies/id/{id}")
@@ -61,12 +60,12 @@ public class MovieControllerImpl extends RestBaseController implements MovieCont
         return ok(movieService.getMovieById(id));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
-    @GetMapping("/movies/genre/{genre}")
-    @Override
-    public RootEntity<List<MovieResponse>> getAllMoviesByGenre(@PathVariable  Genre genre) {
-        return ok(movieService.getAllMoviesByGenre(genre));
-    }
+//    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+//    @GetMapping("/movies/genre/{genre}")
+//    @Override
+//    public RootEntity<List<MovieResponse>> getAllMoviesByGenre(@PathVariable  Genre genre) {
+//        return ok(movieService.getAllMoviesByGenre(genre));
+//    }
 
 //----------------PAGEABLE--------------------------
     @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")

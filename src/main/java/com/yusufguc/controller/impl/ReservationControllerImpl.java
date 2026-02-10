@@ -5,8 +5,11 @@ import com.yusufguc.dto.request.ReservationRequest;
 import com.yusufguc.dto.response.ReservationResponse;
 import com.yusufguc.model.RootEntity;
 import com.yusufguc.service.ReservationService;
+import com.yusufguc.utils.RestPageableEntity;
+import com.yusufguc.utils.RestPageableRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -43,12 +46,12 @@ public class ReservationControllerImpl extends RestBaseController implements Res
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping()
-    @Override
-    public RootEntity<List<ReservationResponse>> getAllReservation() {
-        return ok(reservationService.getAllReservations());
-    }
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @GetMapping()
+//    @Override
+//    public RootEntity<List<ReservationResponse>> getAllReservation() {
+//        return ok(reservationService.getAllReservations());
+//    }
 
     @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
     @GetMapping("/my")
@@ -56,4 +59,18 @@ public class ReservationControllerImpl extends RestBaseController implements Res
     public RootEntity<List<ReservationResponse>> getMyReservation() {
         return ok(reservationService.getMyReservation());
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN','STUDENT')")
+    @GetMapping("/pageable")
+    public RootEntity<RestPageableEntity<ReservationResponse>> getAllReservations(RestPageableRequest pageable){
+
+        Page<ReservationResponse> page =
+                reservationService.getAllReservations(toPageable(pageable));
+
+        RestPageableEntity<ReservationResponse> response =
+                toPageableResponse(page, page.getContent());
+
+        return ok(response);
+    }
+
 }

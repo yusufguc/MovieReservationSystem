@@ -7,7 +7,6 @@ import com.yusufguc.model.enums.Genre;
 import com.yusufguc.utils.RestPageableEntity;
 import com.yusufguc.utils.RestPageableRequest;
 
-import java.util.List;
 
 public interface MovieController {
 
@@ -18,12 +17,11 @@ public interface MovieController {
     public RootEntity<MovieResponse> updateMovie(Long id, MovieRequest movieRequest);
 
     //Pageable
-    public RootEntity<List<MovieResponse>> getAllMovies();
+//    public RootEntity<List<MovieResponse>> getAllMovies();
 
     public RootEntity<MovieResponse> getMovieById(Long id);
 
-    //Pageable
-    public RootEntity<List<MovieResponse>> getAllMoviesByGenre(Genre genre);
+//    public RootEntity<List<MovieResponse>> getAllMoviesByGenre(Genre genre);
 
 //----------------PAGEABLE--------------------------
     public RootEntity<RestPageableEntity<MovieResponse>> getAllMovies(RestPageableRequest pageable);

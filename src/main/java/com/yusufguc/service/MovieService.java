@@ -6,7 +6,6 @@ import com.yusufguc.model.enums.Genre;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 public interface MovieService {
 
@@ -16,11 +15,11 @@ public interface MovieService {
 
     public  MovieResponse updateMovie(Long id ,MovieRequest movieRequest);
 
-    public List<MovieResponse> getAllMovies();
+    //public List<MovieResponse> getAllMovies();
 
     public  MovieResponse getMovieById(Long id);
 
-    public List<MovieResponse> getAllMoviesByGenre(Genre genre);
+//    public List<MovieResponse> getAllMoviesByGenre(Genre genre);
 
     //-------------PAGEABLE--------------
     public Page<MovieResponse> getAllMovies(Pageable pageable) ;

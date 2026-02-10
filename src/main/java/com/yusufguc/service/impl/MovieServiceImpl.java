@@ -16,8 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -61,16 +59,16 @@ public class MovieServiceImpl implements MovieService {
         return toMovieResponse(savedMovie);
     }
 
-    @Override
-    public List<MovieResponse> getAllMovies() {
-        List<Movie> allMoviesDB = movieRepository.findAll();
-
-        List<MovieResponse> movieResponseList=new ArrayList<>();
-        for (Movie movie : allMoviesDB) {
-            movieResponseList.add(toMovieResponse(movie));
-        }
-        return movieResponseList;
-    }
+//    @Override
+//    public List<MovieResponse> getAllMovies() {
+//        List<Movie> allMoviesDB = movieRepository.findAll();
+//
+//        List<MovieResponse> movieResponseList=new ArrayList<>();
+//        for (Movie movie : allMoviesDB) {
+//            movieResponseList.add(toMovieResponse(movie));
+//        }
+//        return movieResponseList;
+//    }
 
     @Override
     public MovieResponse getMovieById(Long id) {
@@ -78,21 +76,21 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(() ->new BaseException(new ErrorMessage(MessageType.THERE_IS_NO_MOVIE,id.toString())));
         return toMovieResponse(movie);
     }
-
-    @Override
-    public List<MovieResponse> getAllMoviesByGenre(Genre genre) {
-
-        if (genre == null) {
-            return getAllMovies();
-        }
-        List<Movie> moviesByGenre = movieRepository.findByGenre(genre);
-
-        List<MovieResponse> movieResponseList=new ArrayList<>();
-        for (Movie movie : moviesByGenre) {
-            movieResponseList.add(toMovieResponse(movie));
-        }
-        return movieResponseList;
-    }
+//
+//    @Override
+//    public List<MovieResponse> getAllMoviesByGenre(Genre genre) {
+//
+//        if (genre == null) {
+//            return getAllMovies();
+//        }
+//        List<Movie> moviesByGenre = movieRepository.findByGenre(genre);
+//
+//        List<MovieResponse> movieResponseList=new ArrayList<>();
+//        for (Movie movie : moviesByGenre) {
+//            movieResponseList.add(toMovieResponse(movie));
+//        }
+//        return movieResponseList;
+//    }
 
 
 //----------------PAGEABLE--------------------------
