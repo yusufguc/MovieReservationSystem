@@ -172,12 +172,53 @@ Authorize using JWT token from:
 ---
 
 ## 📌 Example Endpoints
-- POST /auth/register
-- POST /auth/authenticate
-- GET /api/v1/movies/pageable
-- POST /api/v1/reservation
-- GET /api/v1/showtimes/by-date
-- GET /api/v1/showtimes/{id}/available-seats
+🔐 Authentication Controller
+-POST   /auth/register 
+
+-POST   /auth/authenticate
+
+-POST   /auth/refreshToken
+
+🎬 Movie Controller
+
+-POST   /api/v1/movies
+
+-PUT    /api/v1/movies/{id}
+
+-DELETE /api/v1/movies/{id}
+
+-GET    /api/v1/movies/id/{id}
+
+-GET    /api/v1/movies/pageable
+
+-GET    /api/v1/movies/pageable/genre/{genre}
+
+🕒 Showtime Controller
+
+-POST   /api/v1/movies/{movieId}/showtimes
+
+-PUT    /api/v1/movies/{movieId}/showtimes/{showTimeId}
+
+-DELETE /api/v1/showtime/{showTimeId}
+
+-GET    /api/v1/showtimes/by-date
+
+🎟 Reservation Controller
+
+-POST   /api/v1/reservation
+
+-PUT    /api/v1/reservation/id/{reservationId}
+
+-DELETE /api/v1/reservation/id/{reservationId}
+
+-GET    /api/v1/reservation/pageable
+
+-GET    /api/v1/reservation/my
+
+🪑 Seat Controller
+
+-GET /api/v1/showtimes/{showtimeId}/available-seats
+
 
 ---
 
